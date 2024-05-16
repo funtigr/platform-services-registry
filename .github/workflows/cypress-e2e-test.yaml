@@ -48,7 +48,8 @@ jobs:
         cp .env.example .env.test
 
     - name: Cypress run
-      uses: cypress-io/github-action@v6
+      run: |
+        npx cypress run
         
     - name: Post Localdev Environment
       run: | 
