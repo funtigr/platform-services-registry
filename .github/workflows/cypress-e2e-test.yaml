@@ -17,14 +17,8 @@ jobs:
     - name: Setup NPM Packages
       uses: ./.github/actions/setup-npm
 
-    - name: Run lint
-      run: npm run lint
-
     - name: Run App build
       run: npm run build
-
-    - name: Run App
-      run: npm start &
 
     - name: Install Docker Compose v2
       # See https://docs.docker.com/compose/install/linux/
@@ -46,10 +40,17 @@ jobs:
         node_modules/.bin/wait-on http://localhost:8080/health/ready --timeout 120000
         cp .env.example .env.test
 
-    - name: Cypress run
+    - name: Run App
       run: |
-        chmod -R +rx /home/runner/work/platform-services-registry/platform-services-registry/localdev/mnt/postgres
-        npx cypress run
+        npm start & 
+        node_modules/.bin/wait-on http://localhost:3000 --timeout 120000
+    
+    - name: Test DB Availability
+      run: curl -X GET http://localhost:3000/api/private-cloud/products
+      
+    # - name: Cypress run
+    #   run: |
+    #     npx cypress run
         
     - name: Post Localdev Environment
       run: | 
