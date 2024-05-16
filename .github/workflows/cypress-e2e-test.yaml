@@ -24,7 +24,7 @@ jobs:
       run: npm run build
 
     - name: Run App
-      run: npm run dev
+      run: npm start
 
     - name: Install Docker Compose v2
       # See https://docs.docker.com/compose/install/linux/
