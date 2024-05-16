@@ -39,8 +39,6 @@ jobs:
       run: |
         mkdir -p ./localdev/mnt/mongodb
         mkdir -p ./localdev/mnt/postgres
-        chmod -R +rx ./localdev/mnt
-        chmod -R +rx /home/runner/work/platform-services-registry/platform-services-registry/localdev/mnt/postgres
 
         export MACHINE_HOST_IP=$(hostname -I | awk '{print $1}')
         ~/.docker/cli-plugins/docker-compose -f localdev/docker-compose.yml -f localdev/docker-compose-ci.yml up -d
@@ -49,6 +47,7 @@ jobs:
 
     - name: Cypress run
       run: |
+        chmod -R +rx /home/runner/work/platform-services-registry/platform-services-registry/localdev/mnt/postgres
         npx cypress run
         
     - name: Post Localdev Environment
