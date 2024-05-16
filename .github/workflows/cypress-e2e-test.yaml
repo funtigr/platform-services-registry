@@ -47,6 +47,8 @@ jobs:
         cp .env.example .env.test
 
     - name: Cypress run
+      run: | 
+        chmod -R +rx /home/runner/work/platform-services-registry/platform-services-registry/localdev/mnt/postgres
       uses: cypress-io/github-action@v6
       with:
         build: npm run build
