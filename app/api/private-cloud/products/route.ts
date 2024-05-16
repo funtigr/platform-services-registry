@@ -13,9 +13,9 @@ export const POST = createApiHandler({
 });
 
 export const GET = createApiHandler({
-  roles: ['user'],
+  roles: [],
   validations: {},
-})(async ({ session }) => {
-  const data = await listOp({ session });
+})(async () => {
+  const data = await listOp();
   return OkResponse(data);
 });
