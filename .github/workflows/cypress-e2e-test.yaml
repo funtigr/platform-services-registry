@@ -23,8 +23,8 @@ jobs:
     - name: Run App build
       run: npm run build
 
-    - name: Run App
-      run: npm start
+    # - name: Run App
+    #   run: npm start
 
     - name: Install Docker Compose v2
       # See https://docs.docker.com/compose/install/linux/
@@ -37,6 +37,7 @@ jobs:
 
     - name: Run E2E tests
       run: |
+        npm start
         mkdir -p ./localdev/mnt/mongodb
         mkdir -p ./localdev/mnt/postgres
 
