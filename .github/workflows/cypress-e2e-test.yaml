@@ -39,7 +39,6 @@ jobs:
       run: |
         mkdir -p ./localdev/mnt/mongodb
         mkdir -p ./localdev/mnt/postgres
-        chmod +rx ./localdev/mnt/mongodb
         chmod +rx ./localdev/mnt/postgres
 
 
