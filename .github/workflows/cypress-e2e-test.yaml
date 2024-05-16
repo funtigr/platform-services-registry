@@ -46,7 +46,9 @@ jobs:
         node_modules/.bin/wait-on http://localhost:3000 --timeout 120000
     
     - name: Test DB Availability
-      run: curl -X GET http://localhost:3000/api/private-cloud/products
+      run: |
+        response=$(curl -s http://localhost:3000/api/private-cloud/products)
+        echo "Response: $response"
       
     # - name: Cypress run
     #   run: |
