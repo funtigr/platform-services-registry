@@ -34,6 +34,7 @@ jobs:
         mkdir -p ./localdev/mnt/mongodb
         mkdir -p ./localdev/mnt/postgres
         chmod -R +rx ./localdev/mnt/postgres
+        cd localdev
         echo "Docker is going to be executed in: ${PWD}"
 
         export MACHINE_HOST_IP=$(hostname -I | awk '{print $1}')
