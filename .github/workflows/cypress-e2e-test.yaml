@@ -20,6 +20,15 @@ jobs:
     - name: Run App build
       run: npm run build
 
+    - name: Notify RocketChat
+      if: success()
+      env:
+        ROCKETCHAT_WEBHOOK_URL: ${{ secrets.ROCKETCHAT_WEBHOOK_DEPLOY_PROD_URL }}
+      run: |
+        curl -X POST -H "Content-Type: application/json" -d '{
+          "text": ":white_check_mark: TEST MESSAGE: Deployment to Prod was successful! Read the changes here [${{ github.event.release.tag_name }}](https://github.com/bcgov/platform-services-registry/blob/main/CHANGELOG.md#${{ github.event.release.tag_name }})"
+        }' $ROCKETCHAT_WEBHOOK_URL
+
     - name: Install Docker Compose v2
       # See https://docs.docker.com/compose/install/linux/
       run: |
@@ -61,3 +70,5 @@ jobs:
       run: | 
         ~/.docker/cli-plugins/docker-compose -f localdev/docker-compose.yml -f localdev/docker-compose-ci.yml down
         sudo rm -rf ./localdev/mnt
+
+    
