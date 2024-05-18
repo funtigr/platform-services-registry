@@ -14,14 +14,12 @@ jobs:
     - name: Setup Tools
       uses: ./.github/actions/setup-tools
 
-    # - name: Setup NPM Packages
-    #   uses: ./.github/actions/setup-npm
+    - name: Setup NPM Packages
+      uses: ./.github/actions/setup-npm
 
     - name: Run App build
       run: |
-        # npm run build
-        pwd 
-        ls 
+        npm run build
 
     - name: Install Docker Compose v2
       # See https://docs.docker.com/compose/install/linux/
@@ -36,10 +34,6 @@ jobs:
       run: |
         mkdir -p ./localdev/mnt/mongodb
         mkdir -p ./localdev/mnt/postgres
-        chmod -R +rx ./localdev/mnt/postgres
-        cd localdev
-        pwd 
-        ls 
 
         export MACHINE_HOST_IP=$(hostname -I | awk '{print $1}')
         ~/.docker/cli-plugins/docker-compose -f docker-compose.yml -f docker-compose-ci.yml up -d
@@ -58,9 +52,9 @@ jobs:
         response=$(curl -s http://localhost:3000/api/private-cloud/products)
         echo "Response: $response"
       
-    # - name: Cypress run
-    #   run: |
-    #     npx cypress run
+    - name: Cypress run
+      run: |
+        npx cypress run
         
     - name: Post Localdev Environment
       run: | 
