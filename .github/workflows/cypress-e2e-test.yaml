@@ -19,7 +19,6 @@ jobs:
 
     - name: Run App build
       run: |
-        npm install wait-on
         npm run build
 
     - name: Install Docker Compose v2
@@ -40,13 +39,13 @@ jobs:
         ~/.docker/cli-plugins/docker-compose -f docker-compose.yml -f docker-compose-ci.yml up -d
         # ~/.docker/cli-plugins/docker-compose -f localdev/docker-compose.yml -f localdev/docker-compose-ci.yml up -d
         docker-compose logs postgres
-        node_modules/bin/wait-on http://localhost:8080/health/ready --timeout 120000
+        ../node_modules/.bin/wait-on http://localhost:8080/health/ready --timeout 120000
         cp .env.example .env
 
     - name: Run App
       run: |
         npm start & 
-        node_modules/bin/wait-on http://localhost:3000 --timeout 120000
+        ../node_modules/.bin/wait-on http://localhost:3000 --timeout 120000
     
     - name: Test DB Availability
       run: |
