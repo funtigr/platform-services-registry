@@ -19,6 +19,7 @@ jobs:
 
     - name: Run App build
       run: |
+        npm install wait-on
         npm run build
 
     - name: Install Docker Compose v2
